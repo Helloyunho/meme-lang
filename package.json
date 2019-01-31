@@ -11,6 +11,8 @@
   "dependencies": {},
   "devDependencies": {
     "chai": "^4.2.0",
+    "docz": "^0.13.7",
+    "docz-theme-default": "^0.13.7",
     "mocha": "^5.2.0"
   }
 }

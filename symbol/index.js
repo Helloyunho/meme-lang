@@ -20,7 +20,6 @@ module.exports = class SymbolTableInterpreter {
   visitProgram (node) {
     this.currentState = new ScopeSymbols('global', 1, this.currentState)
     this.visit(node.block)
-    this.currentState = this.currentState.enclosingScope
   }
 
   visitBinOp (node) {
@@ -142,7 +141,7 @@ module.exports = class SymbolTableInterpreter {
     let asss = this.visit(node.check[0])
     if (typeof asss !== 'undefined') {
       let varSymbol = new VarSymbol(node.check[0].value, undefined, (typeof asss.varValue !== 'undefined') ? asss.varValue : asss)
-      this.currentState.define(varSymbol)
+      this.currentState.unsafeDefine(varSymbol)
     }
     while (this.visit(node.check[1]).value) {
       this.visit(node.run)
@@ -175,7 +174,7 @@ module.exports = class SymbolTableInterpreter {
       left = left.varValue
     }
     let right = node.right
-    if (!(right.value in left) && !(right.funcName in left) && (right.left ? !(right.left.value in left) : true)) {
+    if (!(right.value in left) && !(right.funcName in left) && (right.left ? !(right.left.value in left) : false)) {
       throw new Error(`${right.funcName || right.value || right.left.value} not found in type ${left}.`)
     } else {
       if (right.name === 'Call') {
@@ -246,9 +245,8 @@ module.exports = class SymbolTableInterpreter {
 
   visitFunction (node) {
     const a = (args, _) => {
-      let name = node.funcName
-      let symbol = new FunctionSymbol(name)
-      this.currentState = new ScopeSymbols(name, this.currentState.level + 1, this.currentState)
+      let symbol = new FunctionSymbol()
+      this.currentState = new ScopeSymbols('FUNCTION', this.currentState.level + 1, this.currentState)
       node.vars.forEach((v, i) => {
         let name = v.value
         let as = this.visit(args[i])

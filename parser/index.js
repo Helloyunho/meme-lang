@@ -90,8 +90,10 @@ module.exports = class Parser {
       node = this.timesStatement()
     } else if (token.type === 'FOR') {
       node = this.forStatement()
-    } else if (token.type === 'ID') {
+    } else if (token.type === 'ID' && (this.tokens[this.indexToken + 1].type === '=' || this.tokens[this.indexToken + 1].type === ':=')) {
       node = this.assignmentStatement()
+    } else if (token.type === 'ID') {
+      node = this.variable()
     } else if (token.type === 'IMPORT') {
       node = this.importModule()
     } else {
@@ -345,7 +347,7 @@ module.exports = class Parser {
       }
       this.checker('}')
       return new DictParser(vars)
-    } else {
+    } else if (token.type === 'ID') {
       return this.variable()
     }
   }

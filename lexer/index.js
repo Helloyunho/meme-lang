@@ -70,7 +70,7 @@ module.exports = (string) => {
     }
     if (/[a-zA-Z]/.test(char)) {
       let a = ''
-      while (/[a-zA-Z]/.test(string[i]) || isDigit(string[i]) || string[i] === '_') {
+      while (typeof string[i] === 'string' && (/[a-zA-Z]/.test(string[i]) || isDigit(string[i]) || string[i] === '_')) {
         a += string[i]
         i++
       }
