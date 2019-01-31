@@ -1,0 +1,2 @@
+def suicide(self):
+    exit()
