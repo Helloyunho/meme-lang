@@ -9,5 +9,8 @@ class String:
     def __str__(self):
         return self.value
 
+    def toNumber(self):
+        return float(self.str) if '.' in self.str else int(self.str)
+
     def standsFor(self, str, visit):
         return Boolean((visit.visit(str[0]).value).startswith(self.str))

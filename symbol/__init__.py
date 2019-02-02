@@ -17,7 +17,7 @@ class SymbolTableInterpreter:
 
     def visitProgram(self, node):
         self.current_state = ScopedSymbolTable('global', 1, self.current_state)
-        self.visit(node.block)
+        return self.visit(node.block)
 
     def visitBinOp(self, node):
         result = None
@@ -183,9 +183,9 @@ class SymbolTableInterpreter:
         if symbol is None:
             raise NameError(f'Variable {name} not found.')
         if hasattr(symbol, 'var_value'):
-            symbol.var_value(node.vars, self)
+            return symbol.var_value(node.vars, self)
         else:
-            symbol(node.vars, self)
+            return symbol(node.vars, self)
 
     def visitAssign(self, node):
         var_name = node.left.value

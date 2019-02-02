@@ -70,6 +70,11 @@ print(f['asdfasdf'])
 // This code doesn't work: g = 'asdfasdf'
 
 /* And this too: f.asdfasdf */
+
+print(str(10) + '10')
+print(num('10') + 10)
+print(array('[10]'))
+print(dict('{\\'asdf\\': \\'asdfasdf\\'}'))
 ''')
 
 p = Parser(l).parse()

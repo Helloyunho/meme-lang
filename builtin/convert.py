@@ -5,14 +5,14 @@ from .number import Number
 from .boolean import Boolean
 
 def convert(a):
-    if type(a) == str:
+    if type(a) is str:
         return String(a)
-    elif type(a) == int or type(a) == float:
+    elif type(a) is int or type(a) is float:
         return Number(a)
-    elif type(a) == bool:
+    elif type(a) is bool:
         return Boolean(a)
-    elif type(a) == list:
+    elif type(a) is list:
         return Array(a)
-    elif type(a) == dict:
+    elif type(a) is dict:
         return Dict(a)
     return a

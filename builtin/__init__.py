@@ -1,10 +1,8 @@
-from .array import Array
-from .boolean import Boolean
 from .convert import convert
-from .dictionary import Dict
-from .number import Number
-from .print import printt
+from .print import printt as print
 from .run import run
 from .suicide import suicide
-
-print = printt
+from .tostring import tostring as str
+from .toarray import toarray as array
+from .todict import todict as dict
+from .tonumber import tonumber as num

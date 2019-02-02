@@ -280,9 +280,14 @@ class Parser:
             return Array(varss)
         elif token.type == '{':
             self.checker('{')
+            if self.tokens[self.indexToken].type == '\n':
+                self.indexToken += 1
+            if self.tokens[self.indexToken].type == ';':
+                self.indexToken += 1
             varss = []
             while self.tokens[self.indexToken].type != '}':
-                left = self.exce()
+                left = String(self.tokens[self.indexToken])
+                self.checker('STRING')
                 self.checker(':')
                 right = self.exce()
                 varss.append(DictLR(left, right))
@@ -295,6 +300,8 @@ class Parser:
             self.checker('}')
 
             return Dict(varss)
+        elif token.type == 'ID' and self.tokens[self.indexToken + 1].type == '(':
+            return self.callStatement()
         elif token.type == 'ID':
             return self.variable()
 
