@@ -329,9 +329,16 @@ module.exports = class Parser {
       return new ArrayParser(vars)
     } else if (token.type === '{') {
       this.checker('{')
+      if (this.tokens[this.indexToken].type === '\n') {
+        this.indexToken++
+      }
+      if (this.tokens[this.indexToken].type === ';') {
+        this.indexToken++
+      }
       let vars = []
       while (this.tokens[this.indexToken].type !== '}') {
-        let left = this.exce()
+        let left = new StringParser(this.tokens[this.indexToken])
+        this.checker('STRING')
         this.checker(':')
         let right = this.exce()
         vars.push(new DictLR(left, right))
@@ -347,6 +354,8 @@ module.exports = class Parser {
       }
       this.checker('}')
       return new DictParser(vars)
+    } else if (token.type === 'ID' && this.tokens[this.indexToken + 1].type === '(') {
+      return this.callStatement()
     } else if (token.type === 'ID') {
       return this.variable()
     }

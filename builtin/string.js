@@ -10,6 +10,10 @@ module.exports = class Stringg {
     return this.value
   }
 
+  toNumber () {
+    return this.str.includes('.') ? parseFloat(this.str) : parseInt(this.str)
+  }
+
   get length () {
     return new Numberr(this.str.length)
   }

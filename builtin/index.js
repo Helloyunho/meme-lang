@@ -1,10 +1,10 @@
 module.exports = {
   print: require('./print'),
-  String: require('./string'),
-  Number: require('./number'),
-  Boolean: require('./boolean'),
   convert: require('./convert'),
-  array: require('./array'),
   suicide: require('./suicide'),
-  run: require('./run')
+  run: require('./run'),
+  str: require('./str'),
+  num: require('./num'),
+  dict: require('./todict'),
+  array: require('./toarray')
 }

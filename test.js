@@ -32,12 +32,20 @@ describe('assign variable', () => {
 
 describe('get variable', () => {
   it('It must to 3', done => {
-    let l = L('a = 3; a')
-    console.log(l)
+    let l = L('a = 3; print(a)')
     let p = new P(l).parse()
     let s = new S()
-    expect(s.visit(p)).to.equal(3)
+    s.visit(p)
     done()
   })
 })
 
+describe('convert to number', () => {
+  it('It must to 3', done => {
+    let l = L('print(num(\'3\'))')
+    let p = new P(l).parse()
+    let s = new S()
+    s.visit(p)
+    done()
+  })
+})

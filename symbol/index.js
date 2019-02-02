@@ -19,7 +19,7 @@ module.exports = class SymbolTableInterpreter {
 
   visitProgram (node) {
     this.currentState = new ScopeSymbols('global', 1, this.currentState)
-    this.visit(node.block)
+    return this.visit(node.block)
   }
 
   visitBinOp (node) {
@@ -222,9 +222,9 @@ module.exports = class SymbolTableInterpreter {
       throw new Error(`Variable ${name} not found.`)
     }
     if (typeof symbol.varValue !== 'undefined') {
-      symbol.varValue(node.vars, this)
+      return symbol.varValue(node.vars, this)
     } else {
-      symbol(node.vars, this)
+      return symbol(node.vars, this)
     }
   }
 
